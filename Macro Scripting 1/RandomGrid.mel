@@ -5,7 +5,7 @@ for( $i=0; $i<9; ++$i)
 {
 	for( $o=0; $o<9; ++$o)
 		{
-			int $r = rand(0,2);
+			int $r = rand(0,7);
 			if($r ==0){
 				polyCube -w 1 -h 1 -d 1 -sx 1 -sy 1 -sz 1 -ax 0 1 0 -cuv 4 -ch 1;
 				move -relative -objectSpace - worldSpaceDistance $i 0 $o;

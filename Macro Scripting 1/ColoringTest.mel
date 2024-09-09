@@ -1,0 +1,19 @@
+string $cubenames[];
+string $temp[];
+int $id = 0;
+$temp = `polyCube -w 1 -h 1 -d 1 -sx 1 -sy 1 -sz 1 -ax 0 1 0 -cuv 4 -ch 1`;
+string $toAdd = $temp[0];
+
+$cubenames [$id]  = $toAdd;
+$id++;
+print $cubenames;
+
+//COLORING WOO - this is taken directly from doing in maya
+shadingNode -asShader standardSurface;
+// standardSurface2
+sets -renderable true -noSurfaceShader true -empty -name standardSurface2SG;
+// standardSurface2SG
+connectAttr -f standardSurface2.outColor standardSurface2SG.surfaceShader;
+// Connected standardSurface2.outColor to standardSurface2SG.surfaceShader.
+assignCreatedShader "standardSurface" "" standardSurface2 $cubenames;
+// Created shader standardSurface and assigned to the selected objects. //
