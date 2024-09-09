@@ -1,0 +1,38 @@
+//random grid placement 
+
+int $gridX = 40;
+int $gridZ = 3;
+int $gridY = 8;
+float $cubeSize = .5;
+int $placeChance = 3;
+string $objectsInGrid[];
+string $temp[];
+int $objectsInGridID = 0;
+string $lastCreatedOBJ;
+//0 to x chance, set as 0 for every block places, 1 for 1/2, 2 for 1/3, etc.
+// if ($gridY < 1 or $gridY ==null)
+//             {
+//                 $gridY =1;
+//             }
+for( $i=0; $i<$gridX; ++$i)
+{
+	for( $o=0; $o<$gridZ; ++$o)
+		{
+            
+            for ($b=0; $b<($gridY); $b++)
+            {
+                int $r = rand(0,$placeChance);
+			    if($r ==0){
+                    $temp = `polyCube -w $cubeSize -h $cubeSize -d $cubeSize -sx 1 -sy 1 -sz 1 -ax 0 1 0 -cuv 4 -ch 1`;
+                    $lastCreatedOBJ = $temp[0];
+                    $objectsInGrid[$objectsInGridID] = $lastCreatedOBJ;
+                    move -relative -objectSpace - worldSpaceDistance ($i * $cubeSize) ($b * $cubeSize) ($o * $cubeSize) $lastCreatedOBJ;
+                    $objectsInGridID++;
+			    }
+            }
+			
+		}
+}
+print $objectsInGrid;
+
+print("test");
