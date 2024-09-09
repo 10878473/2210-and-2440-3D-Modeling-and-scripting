@@ -1,28 +1,9 @@
-polySphere -r 1 -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -ch 1;
-// polySphere -radius 1 -subdivisionsx 20 subdivisions y 20 -axis 0 1 0 -createuvs 2 construction history 1
-polySphere -r 1 -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -ch 1;
-// targets previously created sphere to move
-move -relative -objectSpace - worldSpaceDistance 5 0 0;
-
-//make sphere in bottom left, maybe -3,-3,0, then run a loop of duplicating it and moving it over 1 and down .5
-polySphere -r 1 -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -ch 1;
-move -relative -objectSpace -worldSpaceDistance -3 -3 0;
-for( $i=0; $i<3; ++$i)
-{
-	duplicate -rr;
-	move -relative -objectSpace - worldSpaceDistance 1 -.5 0;
-
-}
-
-for( $i=0; $i<5; ++$i)
-{
-	duplicate -rr;
-	move -relative -objectSpace - worldSpaceDistance 1 0 0;
-
-}
-for( $i=0; $i<3; ++$i)
-{
-	duplicate -rr;
-	move -relative -objectSpace - worldSpaceDistance 1 .5 0;
-
-}
+TODO
+Clean apartment
+Groceries
+   Milk
+   Cookie dough
+   water bottles
+Shower?
+Finish dramatic sketch
+Clog Sketch
