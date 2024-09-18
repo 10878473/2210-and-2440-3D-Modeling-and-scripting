@@ -1,0 +1,19 @@
+
+
+
+proc StairBuilder(float $width, float $height, float $depth, int $numStairs, int $direction)
+{
+    string $selStair;
+    string $temp[];
+    //^Selected stair
+
+    $temp = `polyCube -width $width -height $height -depth $depth -sx 1 -sy 1 -sz 1 -ax 0 1 0 -cuv 4 -ch 1`;
+    $selStair = $temp[0];
+    xform -worldSpace -translation 0 ($height/2) 0 $selStair;
+
+    for($i=0; $i<$numStairs; $i++;){
+        $temp = `duplicate -returnRootsOnly $selStair`;
+        $selStair = $temp[0];
+        xform -relative -objectSpace -translation 0 $height ($direction);//-1 is the direction the stair builds - You can make it into a variable to pass into the function
+    }
+}

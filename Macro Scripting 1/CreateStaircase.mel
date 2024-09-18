@@ -1,0 +1,35 @@
+
+
+// to add - height/Pivot/offset var, Step height? Step rotation to make a spiral staircase
+//Stair direction - Most common is 1 or -1, but changing the number changes the scale or distance from each step. ex .5 for overlapping, 2 for spaced evenly
+proc createStairs(int $amount, float $stairWidth, float $stairHeight, float $stairDepth, float $stairDirectionDist, float $rotateNum, float $pivotOffset, float $stepHeight)
+{
+    string $objectsInStairs[];
+    string $temp[];
+    int $objectsInStairsID = 0;
+    string $lastCreatedOBJ;        
+    
+    $temp = `polyCube -w $stairWidth -h $stairHeight -d $stairDepth -sx 1 -sy 1 -sz 1 -ax 0 1 0 -cuv 4 -ch 1`;
+    $lastCreatedOBJ = $temp[0];
+    $objectsInStairs[`size $objectsInStairs`] = $lastCreatedOBJ;
+    move -r $pivotOffset 0 0 pCube1.scalePivot pCube1.rotatePivot ;
+    for ($i=0; $i<($amount); $i++)
+    {
+        $temp = `duplicate -returnRootsOnly $lastCreatedOBJ`;
+        $lastCreatedOBJ = $temp[0];
+        $objectsInStairs[`size $objectsInStairs`] = $lastCreatedOBJ;
+        $objectsInStairsID++;
+
+        move -relative -objectSpace -worldSpaceDistance 0 ($stairHeight+$stepHeight) ($stairDepth*$stairDirectionDist) $lastCreatedOBJ;
+        rotate -r 0 $rotateNum 0;
+    }
+    //create $amount of stairs. For loop, create a box at start position + offset, 
+}
+
+//Examples
+//Tight spiral staircase spiraling around a central point
+//createStairs(100, 3, 0.25, 1.25, -.5, 5,10,0);
+//big square stairs overlapping a tiny bit
+//createStairs(8,5,5,5,.9,0,0,0);
+//Wide spiral stairs with vertical gaps
+//createStairs(16,5,0.25,3,-1,5,0,1);
