@@ -1,0 +1,13 @@
+proc test(float $input[])
+{
+    if(size($input)>0){
+        
+    }
+    else{
+        print("Array is empty.");
+    }
+
+    
+    print("Made it out alive");
+}
+test({0.1,0.5,1,5})
