@@ -1,0 +1,36 @@
+// Function to calculate the median of a list
+global proc float findMedian(float $list[]) {
+    int $size = size($list);  // Get the size of the list
+    
+    // Check if the list is empty
+    if ($size == 0) {
+        error("The list is empty. Cannot calculate the median.");
+    }
+    
+    // Sort the list
+    for ($i = 0; $i < ($size - 1); $i++) {
+        for ($j = $i + 1; $j < $size; $j++) {
+            if ($list[$i] > $list[$j]) {
+                float $temp = $list[$i];
+                $list[$i] = $list[$j];
+                $list[$j] = $temp;
+            }
+        }
+    }
+
+    // Find the median
+    if ($size % 2 == 1) {
+        // Odd number of elements: return the middle element
+        return $list[($size - 1) / 2];
+    } else {
+        // Even number of elements: return the average of the two middle elements
+        float $mid1 = $list[$size / 2];
+        float $mid2 = $list[($size / 2) - 1];
+        return ($mid1 + $mid2) / 2;
+    }
+}
+
+// Example usage:
+float $myList[] = {5.0, 3.2, 6.7, 1.4, 8.9, 2.5,5.11};
+float $median = findMedian($myList);
+print("Median: " + $median + "\n");

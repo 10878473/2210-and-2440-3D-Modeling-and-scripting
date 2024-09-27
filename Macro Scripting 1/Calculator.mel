@@ -1,0 +1,134 @@
+// Sum of two numbers
+proc float sumTwo(float $a, float $b)
+{
+    return ($a + $b);
+}
+
+// Sum of an array of numbers
+proc float sumArray(float $a[])
+{
+    float $initial = 0;
+    for ($x = 0; $x < size($a); $x++)
+    {
+        $initial += $a[$x];
+    }
+    return $initial;
+}
+
+// Difference of two numbers
+proc float difference(float $a, float $b)
+{
+    return ($a - $b);
+}
+
+// Product of two numbers
+proc float product(float $a, float $b)
+{
+    return ($a * $b);
+}
+
+// Division of two numbers
+proc float divide(float $a, float $b)
+{
+    if ($b == 0) {
+        error("Cannot divide by zero!");
+        return 0;
+    }
+    return ($a / $b);
+}
+
+// Power: $a raised to the power of $b
+proc float aToPowerB(float $a, float $b)
+{
+    float $result = 1;
+    for ($i = 0; $i < $b; $i++)
+    {
+        $result *= $a;
+    }
+    return $result;
+}
+
+// Mean of a list of numbers
+proc float meanOfList(float $s[])
+{
+    float $sum = sumArray($s);
+    return ($sum / size($s));
+}
+
+
+
+// Function to calculate the median of a list
+//this one was way more complicated, i used ChatGPT to template the code because i realized there was gonna be a lot of 
+global proc float findMedian(float $list[]) {
+    int $size = size($list);  // Get the size of the list
+    
+    // Check if the list is empty
+    if ($size == 0) {
+        error("The list is empty. Cannot calculate the median.");
+    }
+    
+    // Sort the list
+    for ($i = 0; $i < ($size - 1); $i++) {
+        for ($j = $i + 1; $j < $size; $j++) {
+            if ($list[$i] > $list[$j]) {
+                float $temp = $list[$i];
+                $list[$i] = $list[$j];
+                $list[$j] = $temp;
+            }
+        }
+    }
+
+    // Find the median
+    if ($size % 2 == 1) {
+        // Odd number of elements: return the middle element
+        return $list[($size - 1) / 2];
+    } else {
+        // Even number of elements: return the average of the two middle elements
+        float $mid1 = $list[$size / 2];
+        float $mid2 = $list[($size / 2) - 1];
+        return ($mid1 + $mid2) / 2;
+    }
+}
+
+// Example usage:
+float $myList[] = {5.0, 3.2, 6.7, 1.4, 8.9, 2.5,9.1};
+float $median = findMedian($myList);
+print("Median: " + $median + "\n");
+
+// more example usage from ChatGPT
+// Sum of two numbers
+float $resultSumTwo = sumTwo(3.0, 5.0);
+print("Sum of 3.0 and 5.0: " + $resultSumTwo + "\n");
+
+// Sum of an array of numbers
+float $array[] = {1.2, 2.3, 3.4, 4.5, 5.6};
+float $resultSumArray = sumArray($array);
+print("Sum of array: " + $resultSumArray + "\n");
+
+// Difference of two numbers
+float $resultDifference = difference(10.0, 4.0);
+print("Difference of 10.0 and 4.0: " + $resultDifference + "\n");
+
+// Product of two numbers
+float $resultProduct = product(2.0, 3.0);
+print("Product of 2.0 and 3.0: " + $resultProduct + "\n");
+
+// Division of two numbers
+float $resultDivide = divide(8.0, 2.0);
+print("Division of 8.0 by 2.0: " + $resultDivide + "\n");
+
+// Power: 2 raised to the power of 3
+float $resultPower = aToPowerB(2.0, 3.0);
+print("2.0 to the power of 3.0: " + $resultPower + "\n");
+
+// Mean of a list of numbers
+float $resultMean = meanOfList($array);
+print("Mean of array: " + $resultMean + "\n");
+
+//Sum (addition) of 2 or more float values
+//Difference (subtraction ) of 2 or more values
+//Multiplication of 2 or more values
+//Division of 2 or more values
+//Power (x raised power n, eg. x³)
+//Mean (or average)
+//Median//
