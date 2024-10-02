@@ -11,3 +11,11 @@ proc test(float $input[])
     print("Made it out alive");
 }
 test({0.1,0.5,1,5})
+
+
+for ($i=0; $i<(100); $i++)
+{
+    duplicate;
+    move -relative -objectSpace - worldSpaceDistance 0 rand(-5,5) -10;
+}
+
