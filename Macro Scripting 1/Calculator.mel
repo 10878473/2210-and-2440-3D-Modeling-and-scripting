@@ -157,13 +157,14 @@ global proc Calculator(float $input[], string $operation){
         $resultString +="I will now  ";
         $resultString += $operation;
         $resultString += " The numbers ";
-        for ( $i=0; $i<(size($input)-1); $i++)
+        for ( $i=0; $i<(size($input)); $i++)
         {
             $resultString += $input[$i];
             $resultString += ", ";
         }
         $resultString += "and the result is ";
         $resultString += $result;
+        $resultString += "\n";
         print($resultString);
         break;
 
@@ -174,41 +175,140 @@ global proc Calculator(float $input[], string $operation){
             print($errorMsg + "\n");
         }
         else{
-                $result = difference($input[0],$input[1]);
+            $result = difference($input[0],$input[1]);
             //^ This actually runs the function
             $resultString +="I will now  ";
             $resultString += $operation;
             $resultString += " The numbers ";
-            for ($i=0; $i<(size($input)-1); $i++)
+            for ($i=0; $i<(size($input)); $i++)
             {
                 $resultString += $input[$i];
                 $resultString += ", ";
             }
             $resultString += "and the result is ";
             $resultString += $result;
-           
+                    $resultString += "\n";
+
+            print($resultString);
+
         } 
         break;
         
 
     case "multiply":
-        print("Performing multiplication\n");
+        if (size($input) > 2)
+        { 
+            $result = productArray($input);
+
+        }
+        else{
+            $result = product($input[0],$input[1]);
+            //^ This actually runs the function
+            
+           
+        } 
+        $resultString +="I will now  ";
+        $resultString += $operation;
+        $resultString += " The numbers ";
+        for ($i=0; $i<(size($input)); $i++)
+        {
+            $resultString += $input[$i];
+            $resultString += ", ";
+        }
+        $resultString += "and the result is ";
+        $resultString += $result;        
+        $resultString += "\n";
+
+        print($resultString);
+
         break;
 
     case "divide":
-        print("Performing division\n");
+        if (size($input) > 2)
+        { 
+            string $errorMsg = "Error, List too long. " + $operation + " only supports 2 inputs.";
+            print($errorMsg + "\n");
+        }
+        else{
+            $result = divide($input[0],$input[1]);
+            //^ This actually runs the function
+            $resultString +="I will now  ";
+            $resultString += $operation;
+            $resultString += " The numbers ";
+            for ($i=0; $i<(size($input)); $i++)
+            {
+                $resultString += $input[$i];
+                $resultString += ", ";
+            }
+            $resultString += "and the result is ";
+            $resultString += $result;
+            $resultString += "\n";
+
+            print($resultString);
+
+           
+        } 
         break;
 
     case "raise":
-        print("Performing exponentiation\n");
+        if (size($input) > 2)
+        { 
+            string $errorMsg = "Error, List too long. " + $operation + " only supports 2 inputs.";
+            print($errorMsg + "\n");
+        }
+        else{
+            $result = aToPowerB($input[0],$input[1]);
+            //^ This actually runs the function
+            $resultString +="I will now  ";
+            $resultString += $operation;
+            $resultString += " The numbers ";
+            for ($i=0; $i<(size($input)); $i++)
+            {
+                $resultString += $input[$i];
+                $resultString += ", ";
+            }
+            $resultString += "and the result is ";
+            $resultString += $result;
+            $resultString += "\n";
+
+            print($resultString);
+
+        } 
         break;
 
     case "findmean":
-        print("Calculating the mean\n");
+        $result = meanOfList($input);
+        //^ This actually runs the function
+        $resultString +="I will now  ";
+        $resultString += $operation;
+        $resultString += " The numbers ";
+        for ( $i=0; $i<(size($input)); $i++)
+        {
+            $resultString += $input[$i];
+            $resultString += ", ";
+        }
+        $resultString += "and the result is ";
+        $resultString += $result;
+        $resultString += "\n";
+
+        print($resultString);
         break;
 
     case "findmedian":
-        print("Calculating the median\n");
+        $result = findMedian($input);
+        //^ This actually runs the function
+        $resultString +="I will now  ";
+        $resultString += $operation;
+        $resultString += " The numbers ";
+        for ( $i=0; $i<(size($input)); $i++)
+        {
+            $resultString += $input[$i];
+            $resultString += ", ";
+        }
+        $resultString += "and the result is ";
+        $resultString += $result;
+        $resultString += "\n";
+        print($resultString);
         break;
 
     default:
@@ -218,6 +318,10 @@ global proc Calculator(float $input[], string $operation){
 }
 Calculator({5,3,6,2}, "add");
 Calculator({5,3,6,2}, "subtract");
+Calculator({5,3}, "subtract");
 Calculator({5,3,6,2}, "multiply");
-
-print("\n\nFinished running");
+Calculator({450,5}, "divide");
+Calculator({5,3}, "raise");
+Calculator({5,3,6,2,4,5,7,10,12}, "findmean");
+Calculator({5,3,6,2,4,5,7,10,12}, "findmedian");
+print("\n\nFinished running\n");
