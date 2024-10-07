@@ -1,0 +1,39 @@
+//From current Selection, Find center position, create locator, and move it to that center position.
+
+proc FindCenter() {
+
+    //Get selection
+    string $selected[] = `ls -sl`;
+    
+    // Check if something is selected
+    if (size($selected) == 0) {
+        error "No objects selected.";
+        return;
+    }
+
+    print($selected);
+    print(size($selected));
+
+    // Find position
+    float $boundingBoxReturned[] = `xform -q -worldSpace -boundingBox $selected[0]`;
+    
+    // Return in this order: xmin ymin zmin xmax ymax zmax.
+    // 0    1     2    3    4    5 
+    float $centerX = (($boundingBoxReturned[0] + $boundingBoxReturned[3]) / 2);
+    float $centerY = (($boundingBoxReturned[1] + $boundingBoxReturned[4]) / 2);
+    float $centerZ = (($boundingBoxReturned[2] + $boundingBoxReturned[5]) / 2);
+
+    // Calculate center
+    print($boundingBoxReturned);
+    print(size($boundingBoxReturned));
+
+    // Create locator at center point or move to center point
+    string $locator[] = `spaceLocator -p 0 0 0`;
+    
+    // Move locator to the calculated center point
+    xform -worldSpace -translation $centerX $centerY $centerZ $locator[0];
+
+}
+
+// Call the function
+FindCenter();
