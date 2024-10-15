@@ -1,0 +1,33 @@
+
+// parameters - Use selected object, input x y z area, and amount of copies. randomly place copies of selected object in that area
+
+global proc CopyInArea(float $xmin, float $xmax, float $ymin, float $ymax, float $zmin, float $zmax, float $amount){
+    //Get selection
+    string $selected[] = `ls -sl`;
+    // Check if something is selected
+    if (size($selected) == 0) {
+        error "No objects selected.";
+        return;
+    }
+    string $selObj = $selected[0];
+
+    
+    
+   
+        for ($id=0; $id<(size($selected)); $id++)
+        {
+            
+        
+            for ($i=0; $i<$amount; $i++)
+            {
+                float $randx = rand($xmin,$xmax);
+                float $randy = rand($ymin,$ymax);
+                float $randz = rand($zmin,$zmax);
+                string $temp[] = `duplicate -returnRootsOnly $selected[$id]`;
+                move -absolute  $randx $randy $randz $temp[0];
+            }
+        }
+    
+}
+
+CopyInArea(-21.820, 13.578, 0, 21.820,-21.820,7.879, 5);
