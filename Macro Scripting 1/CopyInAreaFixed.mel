@@ -1,0 +1,75 @@
+global proc CopyInArea(float $xmin, float $xmax, float $ymin, float $ymax, float $zmin, float $zmax, int $amount){
+    // Get selection
+    string $selected[] = `ls -sl`;
+    // Check if something is selected
+    if (size($selected) == 0) {
+        error "No objects selected.";
+        return;
+    }
+
+    string $selObj = $selected[0];
+    
+    for ($id=0; $id<(size($selected)); $id++) {
+        for ($i=0; $i<$amount; $i++) {
+            float $randx = rand($xmin,$xmax);
+            float $randy = rand($ymin,$ymax);
+            float $randz = rand($zmin,$zmax);
+            string $temp[] = `duplicate -returnRootsOnly $selected[$id]`;
+            move -absolute $randx $randy $randz $temp[0];
+        }
+    }
+}
+
+// Button command to retrieve values from the UI and run the function
+global proc CIA_ButtonCmd(){
+    float $xmin = `floatField -q -value CIAXminField`;
+    float $xmax = `floatField -q -value CIAXmaxField`;
+    float $ymin = `floatField -q -value CIAYminField`;
+    float $ymax = `floatField -q -value CIAYmaxField`;
+    float $zmin = `floatField -q -value CIAZminField`;
+    float $zmax = `floatField -q -value CIAZmaxField`;
+    int $amount = `intField -q -value CIAamountField`;
+    
+    // Call the CopyInArea function with the retrieved values
+    CopyInArea($xmin, $xmax, $ymin, $ymax, $zmin, $zmax, $amount);
+}
+
+// UI creation
+global proc CopyInAreaUI(){
+    string $uiWindow = "CIAWindow";
+    if (`window -exists $uiWindow`) {
+        deleteUI $uiWindow;
+    }
+
+    $uiWindow = `window -title "Copy Objects in Area" -widthHeight 300 400 -resizeToFitChildren 1`;
+    string $mColumn = `columnLayout -parent $uiWindow -adjustableColumn 1`;
+    
+    text -label "Xmin";
+    floatField -value 0 CIAXminField;   // Default value for Xmin (0)
+    
+    text -label "Xmax";
+    floatField -value 20 CIAXmaxField;  // Default value for Xmax (20)
+    
+    text -label "Ymin";
+    floatField -value 0 CIAYminField;   // Default value for Ymin (0)
+    
+    text -label "Ymax";
+    floatField -value 20 CIAYmaxField;  // Default value for Ymax (20)
+    
+    text -label "Zmin";
+    floatField -value 0 CIAZminField;   // Default value for Zmin (0)
+    
+    text -label "Zmax";
+    floatField -value 20 CIAZmaxField;  // Default value for Zmax (20)
+    
+    text -label "Amount";
+    intField -value 5 CIAamountField;   // Default value for Amount of copies
+
+
+    button -parent $mColumn -label "Copy to Area" -command "CIA_ButtonCmd";
+    
+    showWindow $uiWindow;
+}
+
+// Run the UI
+CopyInAreaUI();

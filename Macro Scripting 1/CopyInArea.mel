@@ -30,4 +30,50 @@ global proc CopyInArea(float $xmin, float $xmax, float $ymin, float $ymax, float
     
 }
 
-CopyInArea(-21.820, 13.578, 0, 21.820,-21.820,7.879, 5);
+//CopyInArea(-21.820, 13.578, 0, 21.820,-21.820,7.879, 5);
+
+global proc CIA_ButtonCmd(){
+    float $xmin = `optionVar -q "CIAXminField"`;
+    float $ymin = `optionVar -q "CIAXMAXFIELD"`;
+    float $zmin = `optionVar -q "CIAYminField"`;
+    float $xmax = `optionVar -q "CiaYmaxField"`;
+    float $ymax = `optionVar -q "CIAZminField"`;
+    float $zmax = `optionVar -q "CIAZmaxField"`;
+    float $am = `optionVar -q "CIAamountField"`;
+    
+    
+    CopyInArea($xmin,$xmax,$ymin,$ymax,$zmin,$zmax,$am);
+
+}
+global proc CopyInAreaUI(){
+    string $uiWindow = "CIAWindow";
+    if (`window -exists $uiWindow`)
+    {
+        deleteUI $uiWindow;
+    }
+    $uiWindow = `window -title "CIAWindow"
+                -widthHeight 300 400
+                -resizeToFitChildren 1
+                $uiWindow`;
+    string $mColumn = `columnLayout -parent $uiWindow -adjustableColumn 1`;
+    text -label "Xmin";
+    optionVar - stringValue "CIAXminField" `floatField`;
+    text -label "Xmax";
+    optionVar - stringValue "CIAXMAXFIELD" `floatField`;
+    text -label "Ymin";
+    optionVar - stringValue "CIAYminField" `floatField`;
+    text -label "Ymax";
+    optionVar - stringValue "CiaYmaxField" `floatField`;
+    text -label "Zmin";
+    optionVar - stringValue "CIAZminField" `floatField`;
+    text -label "Zmax";
+    optionVar - stringValue "CIAZmaxField" `floatField`;
+    text -label "Amount";
+    optionVar - stringValue "CIAamountField" `intField`;
+
+
+    button -parent $mColumn -label "Copy to area" -command "CIA_ButtonCmd";
+    showWindow $uiWindow;
+}
+
+CopyInAreaUI();
