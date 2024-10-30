@@ -28,6 +28,7 @@ for( $i=0; $i<$gridX; ++$i)
                     $objectsInGrid[$objectsInGridID] = $lastCreatedOBJ;
                     move -relative -objectSpace - worldSpaceDistance ($i * $cubeSize) ($b * $cubeSize) ($o * $cubeSize) $lastCreatedOBJ;
                     $objectsInGridID++;
+
 			    }
             }
 			
